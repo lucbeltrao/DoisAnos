@@ -1,0 +1,435 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #ff6b9d;
+    --secondary-color: #c44569;
+    --accent-color: #ffeaa7;
+    --dark-color: #2d3436;
+    --light-color: #f8f9fa;
+    --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 15px 60px rgba(0, 0, 0, 0.2);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #3C4A3B 0%, #556B2F 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Tela de Boas-Vindas */
+.welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #3C4A3B 0%, #556B2F 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.welcome-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.welcome-content {
+    text-align: center;
+    color: white;
+    animation: fadeInUp 1s ease;
+}
+
+.title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Cinzel', serif;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+}
+
+.start-button {
+    padding: 1rem 3rem;
+    font-size: 1.3rem;
+    background: white;
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    min-width: 200px;
+}
+
+.start-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-hover);
+    background: var(--accent-color);
+}
+
+/* Galeria Container */
+.gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.8s ease 0.3s;
+}
+
+.gallery-container.visible {
+    opacity: 1;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.gallery-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'Cinzel', serif;
+}
+
+.counter {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Galeria */
+.gallery {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.cards-wrapper {
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+    height: 500px;
+    perspective: 1000px;
+}
+
+.card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateX(100%) scale(0.8) rotateY(20deg);
+    pointer-events: none;
+}
+
+.card.active {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotateY(0deg);
+    z-index: 10;
+    pointer-events: all;
+    filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.3)) 
+            drop-shadow(0 0 80px rgba(255, 255, 255, 0.2));
+}
+
+.card.prev {
+    opacity: 0.3;
+    transform: translateX(-100%) scale(0.8) rotateY(-20deg);
+    z-index: 5;
+}
+
+.card.next {
+    opacity: 0.3;
+    transform: translateX(100%) scale(0.8) rotateY(20deg);
+    z-index: 5;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    padding: 2rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.card.active:hover .card-overlay {
+    transform: translateY(0);
+}
+
+.card-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Botões de Navegação */
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    z-index: 20;
+    color: var(--secondary-color);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-button:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--shadow-hover);
+    background: var(--accent-color);
+}
+
+.nav-button.prev {
+    left: 5px;
+}
+
+.nav-button.next {
+    right: 5px;
+}
+
+.nav-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Seção de Músicas */
+.music-section {
+    background: transparent;
+    padding: 2rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.music-title {
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: 'Cinzel', serif;
+}
+
+.music-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.music-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 2rem;
+    background: #1DB954;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.music-link:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-hover);
+    background: #1ed760;
+}
+
+.music-link svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Footer */
+.footer-message {
+    text-align: center;
+    color: white;
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-style: italic;
+}
+
+/* Animações */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+    .nav-button.prev {
+        left: -80px;
+    }
+    
+    .nav-button.next {
+        right: -80px;
+    }
+    
+    .cards-wrapper {
+        height: 600px;
+    }
+}
+
+@media (max-width: 767px) {
+    .title {
+        font-size: 2.2rem;
+        padding: 0 1rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+    
+    .gallery-title {
+        font-size: 1.8rem;
+    }
+    
+    .cards-wrapper {
+        height: 520px;
+        max-width: 95%;
+    }
+    
+    .nav-button {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .nav-button svg {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .music-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .music-link {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+        padding: 1.2rem 2rem;
+    }
+    
+    .gallery-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .header {
+        margin-bottom: 1.5rem;
+    }
+    
+    .counter {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .cards-wrapper {
+        height: 450px;
+    }
+    
+    .card-title {
+        font-size: 1.1rem;
+    }
+    
+    .nav-button {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .nav-button svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .start-button {
+        padding: 0.9rem 2.5rem;
+        font-size: 1.2rem;
+    }
+    
+    .music-title {
+        font-size: 1.5rem;
+    }
+}
