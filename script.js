@@ -22,6 +22,11 @@ startButton.addEventListener('click', () => {
     welcomeScreen.classList.add('hidden');
     setTimeout(() => {
         galleryContainer.classList.add('visible');
+        // Tentar tocar a música do Spotify
+        const spotifyPlayer = document.getElementById('spotify-player');
+        if (spotifyPlayer) {
+            spotifyPlayer.src = spotifyPlayer.src; // Recarrega para tentar autoplay
+        }
     }, 300);
 });
 
@@ -158,8 +163,8 @@ cards.forEach(card => {
 // Preload de imagens
 function preloadImages() {
     const images = [
-        'images/the only one.png',
         'images/thank you.png',
+        'images/the only one.png',
         'images/ten years gone.png'
     ];
     
@@ -175,6 +180,12 @@ preloadImages();
 function createSpiral() {
     const spiral = document.createElement('div');
     spiral.classList.add('spiral');
+    
+    // Cores aleatórias para os espirais
+    const colors = ['gold', 'yellow', 'white', 'orange'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    spiral.classList.add(randomColor);
+    
     spiral.textContent = '🌀';
     
     // Posição aleatória na horizontal
