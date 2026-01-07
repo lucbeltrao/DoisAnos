@@ -170,3 +170,37 @@ function preloadImages() {
 }
 
 preloadImages();
+
+// Criar espirais flutuantes
+function createSpiral() {
+    const spiral = document.createElement('div');
+    spiral.classList.add('spiral');
+    spiral.textContent = '🌀';
+    
+    // Posição aleatória na horizontal
+    spiral.style.left = Math.random() * 100 + 'vw';
+    
+    // Posição inicial no fundo da tela
+    spiral.style.bottom = '-50px';
+    
+    document.body.appendChild(spiral);
+    
+    // Remover após a animação
+    setTimeout(() => {
+        spiral.remove();
+    }, 4000);
+}
+
+// Criar espirais periodicamente
+setInterval(createSpiral, 2000);
+
+// Criar espirais ao clicar nas cartas
+cards.forEach(card => {
+    card.addEventListener('click', () => {
+        if (card.classList.contains('active')) {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => createSpiral(), i * 100);
+            }
+        }
+    });
+});

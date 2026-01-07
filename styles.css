@@ -16,12 +16,11 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #3C4A3B 0%, #556B2F 100%);
+    background: #121212;
     min-height: 100vh;
     overflow-x: hidden;
     width: 100%;
     touch-action: pan-y;
-    background-attachment: fixed;
 }
 
 .container {
@@ -39,7 +38,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(135deg, #3C4A3B 0%, #556B2F 100%);
+    background: #121212;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,6 +65,7 @@ body {
     margin-bottom: 1rem;
     text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
     font-family: 'Cinzel', serif;
+    color: #d3a625;
 }
 
 .subtitle {
@@ -77,13 +77,13 @@ body {
 .start-button {
     padding: 1rem 3rem;
     font-size: 1.3rem;
-    background: white;
-    color: var(--secondary-color);
+    background: linear-gradient(45deg, #d3a625, #f0c14b);
+    color: #fff;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     font-weight: 600;
-    box-shadow: var(--shadow);
+    box-shadow: 0 4px 15px rgba(211, 166, 37, 0.3);
     transition: all 0.3s ease;
     -webkit-tap-highlight-color: transparent;
     min-width: 200px;
@@ -91,8 +91,7 @@ body {
 
 .start-button:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: var(--shadow-hover);
-    background: var(--accent-color);
+    box-shadow: 0 8px 25px rgba(211, 166, 37, 0.5);
 }
 
 /* Galeria Container */
@@ -123,6 +122,7 @@ body {
     margin-bottom: 0.5rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     font-family: 'Cinzel', serif;
+    color: #d3a625;
 }
 
 .counter {
@@ -167,6 +167,8 @@ body {
     transform: translateX(0) scale(1) rotateY(0deg);
     z-index: 10;
     pointer-events: all;
+    filter: drop-shadow(0 0 20px rgba(211, 166, 37, 0.4)) 
+            drop-shadow(0 0 40px rgba(211, 166, 37, 0.2));
 }
 
 .card.prev {
@@ -263,7 +265,7 @@ body {
 
 .music-title {
     font-size: 1.8rem;
-    color: white;
+    color: #d3a625;
     margin-bottom: 1.5rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     font-family: 'Cinzel', serif;
@@ -281,21 +283,20 @@ body {
     align-items: center;
     gap: 0.8rem;
     padding: 1rem 2rem;
-    background: #1DB954;
-    color: white;
+    background: linear-gradient(45deg, #d3a625, #f0c14b);
+    color: #fff;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 600;
     font-size: 1.1rem;
-    box-shadow: var(--shadow);
+    box-shadow: 0 4px 15px rgba(211, 166, 37, 0.3);
     transition: all 0.3s ease;
     -webkit-tap-highlight-color: transparent;
 }
 
 .music-link:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: var(--shadow-hover);
-    background: #1ed760;
+    box-shadow: 0 8px 25px rgba(211, 166, 37, 0.5);
 }
 
 .music-link svg {
@@ -330,6 +331,26 @@ body {
     }
     50% {
         transform: scale(1.05);
+    }
+}
+
+/* Animação de Espirais */
+.spiral {
+    position: fixed;
+    font-size: 30px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: floatUp 4s ease-in forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
     }
 }
 
