@@ -67,12 +67,20 @@ const cardsWrapper = document.querySelector('.cards-wrapper');
 cardsWrapper.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX;
     touchStartY = e.changedTouches[0].screenY;
-}, { passive: true });
+}, { passive: false });
 
 cardsWrapper.addEventListener('touchmove', (e) => {
     touchEndX = e.changedTouches[0].screenX;
     touchEndY = e.changedTouches[0].screenY;
-}, { passive: true });
+    
+    const diffX = Math.abs(touchStartX - touchEndX);
+    const diffY = Math.abs(touchStartY - touchEndY);
+    
+    // Se o movimento horizontal for maior que o vertical, previne o scroll da página
+    if (diffX > diffY) {
+        e.preventDefault();
+    }
+}, { passive: false });
 
 cardsWrapper.addEventListener('touchend', (e) => {
     handleSwipe();
